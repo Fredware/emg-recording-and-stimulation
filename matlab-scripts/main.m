@@ -16,3 +16,20 @@
 %     You should have received a copy of the GNU General Public License
 %     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+%% INSTRUCTIONS
+% 1) Ensure MuJoCo is open and running before proceeding with the script.
+% 2) The script is divided into three sections. You have the option to run
+% the entire script or each section individually.
+%
+% Section 1: Setting up MuJoCo
+%   This section establishes the connection between MATLAB and MuJoCo.
+% Section 2: Setting up Backyard Brains Arduino
+%   This section establishes the connection between MATLAB and the Backyard
+%   Brains System.
+% Section 3: Setting up Stim Box
+%   This section establishes the connection between MATLAB and the Stim Box
+% Section 4: Recording and Controlling in Real-time.
+%   This section continuously acquires signals from the Backyard Brains
+%   system, plots the signals, and uses them to control the hand in MuJoCo.
+
+%% 
