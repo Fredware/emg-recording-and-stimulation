@@ -33,3 +33,4 @@
 %   system, plots the signals, and uses them to control the hand in MuJoCo.
 
 %% 
+mujoco_pkg.connect_hand()

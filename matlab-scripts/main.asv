@@ -25,10 +25,14 @@
 %   This section establishes the connection between MATLAB and MuJoCo.
 % Section 2: Setting up Backyard Brains Arduino
 %   This section establishes the connection between MATLAB and the Backyard
-%   Brains System
-% Section 3: S
-% Section 4: Recording and Controlling in Real-time 
+%   Brains System.
+% Section 3: Setting up Stim Box
+%   This section establishes the connection between MATLAB and the Stim Box
+% Section 4: Recording and Controlling in Real-time.
 %   This section continuously acquires signals from the Backyard Brains
-%   system, plots the signals, and uses them to control the hand in MuJoCo
+%   system, plots the signals, and uses them to control the hand in MuJoCo.
 
 %% 
+mujoco_pkg.connect_hand()
+% my_dir = ans
+regexprep(my_dir, "matlab-scripts", "mujoco\\apimex")
