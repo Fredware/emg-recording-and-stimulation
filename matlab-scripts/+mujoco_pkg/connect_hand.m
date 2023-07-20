@@ -1,4 +1,4 @@
-function connect_hand()
+function [joint_positions, joint_groups, command, mujoco_connected] = connect_hand()
 %CONNECT_HAND Summary of this function goes here
 %   Detailed explanation goes here
 fprintf('%s\n', repmat('-', 1, 80))
@@ -42,6 +42,9 @@ try
     mujoco_connected = true;
     fprintf("\tMuJoCo connected! :)\n")
 catch
+    joint_positions = NaN;
+    command = NaN;
+    joint_groups = NaN;
     mujoco_connected = false;
     fprintf("\tMuJoCo failed to connect! :(\n")
 end
