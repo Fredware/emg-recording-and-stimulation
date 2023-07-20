@@ -31,8 +31,8 @@
 % Section 4: Recording and Controlling in Real-time.
 %   This section continuously acquires signals from the Backyard Brains
 %   system, plots the signals, and uses them to control the hand in MuJoCo.
-
+clearvars
+system("..\mujoco\program\mjhaptix.exe &")
 %% 
-mujoco_pkg.connect_hand()
-% my_dir = ans
-regexprep(my_dir, "matlab-scripts", "mujoco\\apimex")
+[joint_positions, joint_groups, command, mujoco_connected] = mujoco_pkg.connect_hand();
+

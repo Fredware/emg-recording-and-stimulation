@@ -32,6 +32,13 @@
 %   This section continuously acquires signals from the Backyard Brains
 %   system, plots the signals, and uses them to control the hand in MuJoCo.
 
-%% 
+%% Section 0: Prepare the workspace
+% This line deletes any information from previous sessions.
+clearvars
+% The following line will initialize MuJoCo. Once the program opens, load the
+% appropriate model and click the "Run" button in MuJoCo.
+system("..\mujoco\program\mjhaptix.exe &")
+
+%% Section 1: Setting up MuJoCo
 [joint_positions, joint_groups, command, mujoco_connected] = mujoco_pkg.connect_hand();
 
