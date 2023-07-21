@@ -42,3 +42,6 @@ system("..\mujoco\program\mjhaptix.exe &")
 %% Section 1: Setting up MuJoCo
 [joint_positions, joint_groups, command, mujoco_connected] = mujoco_pkg.connect_hand();
 
+%% Section 2: Setting up Backyard Brains SpikerShield
+try uno.close; catch; end
+[uno, uno_connected] = arduino_pkg.connect_board();
