@@ -29,7 +29,7 @@ classdef SerialComm < handle
 
             % Buffer size = [(n_samples = 2 sec @ 1 kHz), (n_chans)]
             N_SAMPLES = 2000;
-            obj.data_buffer = zeros(N_SAMPLES, N_CHANS);
+            obj.data_buffer = zeros(N_SAMPLES, obj.N_CHANS);
             
             obj.status.elapsed_time = nan;
             obj.status.current_time = clock;

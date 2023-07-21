@@ -32,7 +32,7 @@
 %   This section continuously acquires signals from the Backyard Brains
 %   system, plots the signals, and uses them to control the hand in MuJoCo.
 
-%% Section 0: Prepare the workspace
+%% Section 0: Preparing the workspace
 % This line deletes any information from previous sessions.
 clearvars
 % The following line will initialize MuJoCo. Once the program opens, load the
@@ -45,3 +45,5 @@ system("..\mujoco\program\mjhaptix.exe &")
 %% Section 2: Setting up Backyard Brains SpikerShield
 try uno.close; catch; end
 [uno, uno_connected] = arduino_pkg.connect_board();
+%% Section 3: Setting up the Stim Box
+%% Section 4: Recording, controlling and stimulating in real-time
