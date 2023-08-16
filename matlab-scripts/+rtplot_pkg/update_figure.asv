@@ -24,7 +24,6 @@ end
 if timestamp > fig.t_max
     fig.t_max = fig.t_max + 5;
     fig.t_min = fig.t_min + 5;
-    xlim(fig.axes{1}.handle, [fig.t_min, fig.t_max])
     % for i=1:length(fig.axes_handles)
     %     xlim(fig.axes_handles{i},[fig.t_min fig.t_max])
     % end

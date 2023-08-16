@@ -69,7 +69,7 @@ MUJOCO_SENSOR_SELECTION = 0; % 0: Uses the most active sensor
 fs = arduino_uno.SAMPLING_FREQ;
 n_rec_chans = arduino_uno.N_CHANS;
 n_ctrl_chans = n_rec_chans;
-hand_sensors = zeros(19,6);
+mujoco_sensors = zeros(19,6);
 
 % Set up plot
 main_fig = rtplot_pkg.initialize_figure(n_rec_chans, n_ctrl_chans, CTRL_THRESH, stimbox_connected);
@@ -106,7 +106,7 @@ while (ishandle(main_fig.handle))
             end
             ctrl_buffer.data(ctrl_buffer.ptr, :) = ctrl_value;
 
-            force_buffer.data(force_buffer.ptr, :) = max(hand_sensors(:,1));
+            force_buffer.data(force_buffer.ptr, :) = max(mujoco_sensors(:,1));
             freq_buffer.data(freq_buffer.ptr, :) = STIM_FREQ;
         catch
             disp("Control calculation failed")
@@ -122,10 +122,10 @@ while (ishandle(main_fig.handle))
         % UPDATE HAND
         if mujoco_connected
             % MOVE HAND
-            mujoco_status = mujoco_pkg.update_hand(ctrl_buffer, mujoco_command, joint_groups);
+            % mujoco_status = mujoco_pkg.update_hand(ctrl_buffer, mujoco_command, joint_groups);
             % READ SENSORS
             mujoco_sensors = circshift(mujoco_sensors, [0,1]);
-            mujoco_sensors(:,1) = mujoco_status.contact;
+            % mujoco_sensors(:,1) = mujoco_status.contact;
             % STIMULATE
             if stimbox_connected
                 stim_freq = stim_pkg.calculate_freq(mujoco_sensors, MUJOCO_SENSOR_SELECTION, STIM_ENCODING);
