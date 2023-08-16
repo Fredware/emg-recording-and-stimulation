@@ -1,0 +1,66 @@
+function fig = initialize_figure(n_rec_chans, n_ctrl_chans, ctrl_tresh, stim_connected)
+
+n_opt_plots = 1;% +1 for mujoco sensors;
+if stim_connected
+    n_opt_plots = n_opt_plots + 1; % +1 for stim freq
+end
+
+n_plots = 2 + n_opt_plots; % rec + ctrl + opt
+
+fig.t_min = 0;
+fig.t_max = 5;
+
+fig.n_rec = n_rec_chans;
+fig.n_ctrl = n_ctrl_chans;
+fig.n_opt = n_opt_plots;
+
+fig.axes_handles = cell(1, n_plots);
+fig.line_handles = cell(1, n_rec_chans+n_ctrl_chans+n_opt_plots);
+y_labels = cell(1, n_plots);
+fig.handle = figure('Units','normalized');
+set(fig.handle,'outerposition',[0,0,.5,1])%moveFigure to left half of screen
+
+for i=1:n_rec_chans
+    y_labels{i} = sprintf("EMG CH %02d [V]", i);
+    fig.axes_handles{i} = subplot(n_plots, 1, i);
+    fig.line_handles{i} = animatedline;
+    xlim([fig.t_min fig.t_max])
+    xticks([])
+    ylim([-2.5 2.5])
+    ylabel(y_labels{i})
+end
+
+for i=1:n_ctrl_chans
+    y_labels{n_rec_chans+i} = sprintf("CTRL CH %02d", i);
+    fig.axes_handles{n_rec_chans+i} = subplot(n_plots, 1, n_rec_chans+i);
+    fig.line_handles{n_rec_chans+i} = animatedline;
+    ylim([-0.25,1.25]);
+    yticks([0,1]);
+    yticklabels({'OPEN (0)','CLOSE (1)'})
+    if(ctrl_tresh > 0)
+        hold on;
+        plot([0,Tmax],[THRESH,THRESH],'r')
+    end
+    ylabel(y_labels(n_rec_chans+i))
+end
+
+for i=1:n_opt_plots
+    if i==1 && stim_connected
+        y_labels{n_rec_chans+n_ctrl_chans+i} = sprintf("STIM FREQ");
+        fig.axes_handles{n_rec_chans+n_ctrl_chans+i} = subplot(n_plots, 1, n_rec_chans + n_ctrl_chans+i);
+        fig.line_handles{n_rec_chans+n_ctrl_chans+i} = animatedline;
+        ylim([0,20]);
+
+    else
+        y_labels{n_rec_chans+n_ctrl_chans+i} = sprintf("FORCE [N]");
+        fig.axes_handles{n_rec_chans+n_ctrl_chans+i} = subplot(n_plots, 1, n_rec_chans+ n_ctrl_chans+i);
+        fig.line_handles{n_rec_chans+n_ctrl_chans+i} = animatedline;
+        ylim([0,200]);
+
+    end
+    ylabel(y_labels(n_rec_chans + n_ctrl_chans+i))
+end
+
+linkaxes([fig.axes_handles{:}],'x')
+xlabel('Time (seconds)')
+end

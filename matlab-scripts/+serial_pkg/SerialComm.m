@@ -17,9 +17,10 @@ classdef SerialComm < handle
         is_ready;
         
         % These properties must match the values in the arduino sketch.
-        ARDUINO_BAUD_RATE = 250000;
-        N_CHANS = 2;
-        ARDUINO_MESSAGE_FORMAT = "%d %d";
+        SAMPLING_FREQ = 1000; % [Hz]
+        BAUD_RATE = 250000;
+        N_CHANS = 6;
+        MESSAGE_FORMAT = join(repmat("%d", 1, 6)); 
     end
     
     methods
@@ -67,7 +68,7 @@ classdef SerialComm < handle
                 end
             end
             delete(instrfind('port',obj.port_number));
-            obj.arduino_board = serialport(obj.port_number, obj.ARDUINO_BAUD_RATE, 'Timeout', 1);
+            obj.arduino_board = serialport(obj.port_number, obj.BAUD_RATE, 'Timeout', 1);
             configureCallback(obj.arduino_board,"terminator",@obj.read_serial);
             flush(obj.arduino_board);
             pause(0.1);
@@ -83,7 +84,7 @@ classdef SerialComm < handle
         function read_serial( obj, varargin)
             try
                 % read data & update status
-                obj.status.data = sscanf( readline( obj.arduino_board), obj.ARDUINO_MESSAGE_FORMAT);
+                obj.status.data = sscanf( readline( obj.arduino_board), obj.MESSAGE_FORMAT);
                 obj.status.current_time = clock;
                 obj.status.elapsed_time = etime( obj.status.current_time, obj.status.prior_time);
                 obj.status.prior_time = obj.status.current_time;
